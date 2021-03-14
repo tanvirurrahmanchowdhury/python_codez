@@ -10,13 +10,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 '''
 from numpy.polynomial import polynomial as P
+#from numpy.polynomial.polynomial import polyval
 coefficients, _ = P.polyfit(x,y,degree,full=False)
+# order c[0], c[1], .. etc.
+# note fitting function = c[0] + c[1]*x + c[2]*x**2 + ...
+# Then
+P.polyval(x, coefficients)
+
 '''
 
 x = np.arange(0,20,0.1)
 y = np.exp(-x)
 
-curve = np.polyfit(x,y,6)
+curve = np.polyfit(x,y,6) # c[6], c[5], ...
 p = np.poly1d(curve)
 
 plt.plot(x,y,x,p(x))
