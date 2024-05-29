@@ -5,17 +5,25 @@ Created on Tue Mar 31 01:28:31 2020
 
 @author: tanvir
 """
-import numpy as np
-import matplotlib.pyplot as plt
-
-d, oneL, twoL, fourL = np.loadtxt("corona.csv", skiprows=1 , unpack=True, delimiter=',')
-plt.plot(d,oneL,linestyle='dashdot',linewidth=4,label='MoS2 1 Layer; c = 3.1 Angstrom')
-plt.plot(d,twoL,linewidth=4,label='MoS2 2 Layers; c = 9.2 Angstrom')
-plt.plot(d,fourL,linestyle='dashed',linewidth=4,label='MoS2 4 Layers; c = 21.5 Angstrom')
-plt.xlabel(r'$\bar{b}$',fontsize=26)
-plt.ylabel('vdw Power Law',fontsize=26)
-plt.ylim(-4.1, -2.8)
-plt.legend(frameon=False,loc='upper right',fontsize=17)
-plt.rc('xtick',labelsize=26)
-plt.rc('ytick',labelsize=26)
-plt.show()
+def PlotEm(output, data_path = None, saveit = False):
+    plt.rcParams.update({'font.size' : 16})
+    
+    #fig = plt.figure(1, figsize=(6,6))
+    fig, axs = plt.subplots(2, 1, figsize=(10, 10))
+    
+    axs[0].plot(output[:,0], output[:,1],'k', label = r'$<v^2>_{atom}$') # 1e12 because we want to plot in ps
+    axs[1].plot(output[:,0], output[:,2],'k', label = r'$<v^2>_{brownian}$')
+    #axs[1].ticklabel_format(useOffset=False)
+    #axs[0].set_ylim([3.0,3.02])
+    #plt.axhline(3.0, color='black', linestyle='dashdot', linewidth=1, alpha = 0.9)
+    #axs[0].axvline(300.0, color='black', linestyle='dashdot', alpha = 0.9)
+    #axs[1].axvline(300.0, color='black', linestyle='dashdot',  alpha = 0.9)
+    #axs[1].set_ylim([2.5,3.5])
+    #axs[1].set_ylim([700,715])
+    #plt.ylabel(r'$<v>$')
+    for ax in axs.flatten(): 
+        ax.legend()
+    plt.tight_layout()
+    if saveit: 
+        plt.savefig(os.path.join(data_path,'_v2_.png'), dpi=300,bbox_inches="tight")
+    plt.show()
