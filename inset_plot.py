@@ -1,3 +1,8 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
+                                                  mark_inset)
+
 fig, ax1 = plt.subplots()
 
 ax1.plot(D/1.8897,power_law_1,linewidth=3,color='red',label=r'$CNT + NH_3\;(PBE-vdW-dZK)$')
